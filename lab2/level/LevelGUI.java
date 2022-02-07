@@ -119,6 +119,24 @@ public class LevelGUI implements Observer {
             }
 
             public void keyTyped(KeyEvent event) {
+                switch(event.getKeyChar) {
+                    case "a":
+                        this.lv.move("West");
+                            Break;
+                    case "s":
+                        this.lv.move("South");
+                            Break;
+                    case "d":
+                        this.lv.move("East");
+                            Break;
+                    case "w":
+                        this.lv.move("North");
+                            Break;
+                    default:
+                            Break;
+                            
+                                                    
+                           
             }
         }
 
