@@ -37,18 +37,11 @@ public class Level extends Observable {
         playerY = rooms.get(0).dy/2;
         playerRoom=rooms.get(0); // för att lättare kunna hålla koll på rummet spelaren är i och vilka kopplingar rummet har
     }
-    public void moveDirection(str Direction) { // den här ska kallas från listner där tangenten är ett input den testar om det går att förflytta spelaren åt ett håll
-        connections = playerRoom.connections;
-        for (connections : connections){
-            if connections == Direction;
-                this.ChangeRoom(Direction) // gör att spelaren förflyttar rum
-                return true
-         return false
-    }
-    public void ChangeRoom(Direction){// förflyttar spelaren till ett anant rum
+    public void moveDirection(Direction){// förflyttar spelaren till ett anant rum
+        try{
         switch(Direction){
         case "North": 
-            playerRoom=playerRoom.northernDoorway; // om det finns en koppling är rum.[riktning]Doorway rummet i den riktningen
+            playerRoom=playerRoom.northernDoorway; // om det finns en koppling är rum.[riktning]Doorway rummet i den riktningen Det hade nog gått att skriva om den här så att for loopen i förra metoden inte längre finns genom att tex lägga till en if sats eller genom att lägga till en try/except som retunerar false om det inte finns en koppling i riktningen. Så slipper man loopa över en lista vi inte har för tillfället.
             Break;
         case "East": 
             playerRoom=playerRoom.easternDoorway;
@@ -60,10 +53,15 @@ public class Level extends Observable {
             playerRoom=playerRoom.westernDoorway;
             Break;
         default: 
-            return // eftersom spelaren inte byter plats om det inte går att flytta sig i riktningen.
-        }
+            return // Borde aldrig komma hit utan om det inte går att gå i en riktning borde det bli en exception. Eftersom det inte finns någon koppling i riktningen.
+        } // playerroom är nytt rum pga hur doorway fungerar
         playerX=playerRoom.x+playerRoom.dx/2 // uppdaterar spelaren till mitten av det nya rummet
-        playerY=playerRoom.y+playerRoom.dy/2
+        playerY=playerRoom.y+playerRoom.dy/2 
+        // lägg till notifyobserver för att uppdatera GUI:n
+            }
+        // Direction är inputen från listner som triggar ett case. Om det inte finns en koppling i riktningen blir det en exception och funktionen uppdaterar ingenting.
+    
+        }
         
     }
 }
